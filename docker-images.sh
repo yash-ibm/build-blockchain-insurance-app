@@ -67,3 +67,4 @@ if [ $BUILD ];
     docker build -t shop-ca:latest shopCA/
     docker build -t repairshop-ca:latest repairShopCA/
 fi
+
