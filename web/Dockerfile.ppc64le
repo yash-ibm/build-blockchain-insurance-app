@@ -1,4 +1,4 @@
-FROM docker.io/library/node:8.11.1
+FROM library/node:8.11.1
 
 ENV NODE_ENV production
 ENV PORT 3000

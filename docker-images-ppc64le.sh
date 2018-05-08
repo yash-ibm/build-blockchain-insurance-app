@@ -21,10 +21,12 @@ dockerCaPull() {
 
 BUILD=
 DOWNLOAD=
+DOWNLOAD_CA_BUILD=
 if [ $# -eq 0 ]; then
     BUILD=true
     PUSH=true
     DOWNLOAD=true
+    DOWNLOAD_CA_BUILD=false
 else
     for arg in "$@"
         do
@@ -34,6 +36,10 @@ else
             if [ $arg == "download" ]; then
                 DOWNLOAD=true
             fi
+	    if [ $arg == "cabuild" ]; then
+		DOWNLOAD_CA_BUILD=true
+		BUILD=true
+	    fi
     done
 fi
 
@@ -49,6 +55,12 @@ if [ $DOWNLOAD ]; then
     echo
     echo "===> List out hyperledger docker images"
     docker images | grep hyperledger*
+fi
+
+if [ $DOWNLOAD_CA_BUILD ]; then
+    : ${CA_TAG:="ppc64le-1.1.0"}
+    echo "===> Pulling fabric ca Image"
+    dockerCaPull ${CA_TAG}
 fi
 
 if [ $BUILD ];
